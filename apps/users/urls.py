@@ -9,7 +9,7 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-	path('',LoginView.as_view(),name="login"),
+	# path('',LoginView.as_view(),name="login"),
 	path('users/logout',LogoutView.as_view(),name="logout"),
 
 	#SIGNUP
