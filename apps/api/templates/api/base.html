@@ -79,7 +79,7 @@
 						
 					</td>
 					<td>
-						<button class="delete is-small"></button>
+						<button @click = "deleteNote([[ note.pk ]])" class="delete is-small"></button>
 					</td>
 				</tr>
 			  
@@ -88,12 +88,12 @@
 		  <form>
 			<div class="field">
 			  <div class="control">
-				<input class="input is-medium is-rounded" type="email" placeholder="Agrega a la lista" autocomplete="username" required />
+				<input id = "noteField" class="input is-medium is-rounded" type="email" placeholder="Agrega a la lista" autocomplete="username" required />
 			  </div>
 			</div>
 			
 			<br />
-			<button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit">
+			<button @click = "addNote()" class="button is-block is-fullwidth is-primary is-medium is-rounded" type="button">
 			  Nueva nota +
 			</button>
 		  </form>
@@ -123,13 +123,41 @@
 			
 			async getNotes() {
 				try {
-					const response = await axios.get(`get/`);
+					const response = await axios.get(`api/noti/get/`);
 					this.notes = response.data;
 					console.log('mounted response',response)
 				} catch (error) {
 				  console.error(error);
 				}
+			},
+            
+			addNote: function(){
+				let noteField = document.getElementById("noteField").value
+				if(noteField!=""){
+					
+					  axios({
+						url:'http://localhost:8000/api/noti/post/',
+						method:'post',
+						 data:{
+						  note:noteField,
+						 },
+						 headers: {
+							"X-CSRFToken":"{{ csrf_token }}",
+							"content-type": "application/json"
+						}
+					  
+					  }).then(respons =>{
+						console.log("response",respons);
+                        if(respons.data.data == "ok"){
+                            this.getNotes();
+                        }
+					  })
+					  .catch(err =>{
+						console.log(err);
+					  });
+				}
 			}			
+
 		}
 		
 		
