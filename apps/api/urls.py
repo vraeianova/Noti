@@ -14,7 +14,8 @@ from .views import (
 	AddNotesView,
 	DeleteNoteView,
 	CompleteNoteView,
-	DeleteAllNotesView
+	DeleteAllNotesView,
+    DeleteSelectedNotesView
 )
 
 # router = DefaultRouter()
@@ -29,6 +30,7 @@ urlpatterns = [
 	path('api/noti/add/',AddNotesView.as_view(),name="add_note"),
 	path('api/noti/<pk>/delete/',DeleteNoteView.as_view(),name="delete_note"),
 	path('api/noti/all/del/',DeleteAllNotesView.as_view(),name="delete_all_notes"),
+	path('api/noti/selected/del/',DeleteSelectedNotesView.as_view(),name="delete_selected_notes"),
 	path('api/noti/<pk>/complete/',CompleteNoteView.as_view(),name="complete_note"),
 
 ]

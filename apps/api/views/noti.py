@@ -62,6 +62,15 @@ class DeleteAllNotesView(View):
 	def post(self, request, **kwargs):		
 		Notes.objects.all().delete()
 		return JsonResponse({'data':"ok"}, status = 200, safe=False)
+		
+class DeleteSelectedNotesView(View):
+	def post(self, request, **kwargs):	
+		data = json.loads(self.request.body)		
+		note_ids = data['note_ids']
+		Notes.objects.filter(pk__in=note_ids).delete()
+
+		print('borré')
+		return JsonResponse({'data':"ok"}, status = 200, safe=False)
 
 
 class CompleteNoteView(View):
