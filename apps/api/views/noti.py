@@ -1,6 +1,8 @@
 # Django
-from django.views.generic import TemplateView,View
+from django.views.generic import TemplateView,View,DeleteView
 from django.http import JsonResponse
+from django.urls import reverse_lazy
+
 
 # Third party
 from rest_framework.generics import ListAPIView
@@ -11,6 +13,7 @@ from ..models import Notes
 #Locals
 from ..serializers import NotesModelSerializer
 import json
+
 
 class NotiApiView(ListAPIView):
 	serializer_class = NotesModelSerializer
@@ -43,5 +46,14 @@ class AddNotesView(View):
 		print("data de prueba",data['note'])
 		# orders = list(Notes.objects.create(note=data['note'])
 		Notes.objects.create(note=data['note'])
+		
+		return JsonResponse({'data':"ok"}, status = 200, safe=False)
+
+
+class DeleteNoteView(View):
+	# model = Notes
+	def post(self, request, **kwargs):
+		data = json.loads(self.request.body)		
+		Notes.objects.filter(pk=data['note_id']).delete()
 		
 		return JsonResponse({'data':"ok"}, status = 200, safe=False)

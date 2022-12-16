@@ -7,7 +7,7 @@ from django.urls import include, path
 # from rest_framework.routers import DefaultRouter
 
 # Views
-from .views import (NotiApiView,NotiView,GetNotesView,AddNotesView)
+from .views import (NotiApiView,NotiView,GetNotesView,AddNotesView,DeleteNoteView)
 
 # router = DefaultRouter()
 # router.register(r'users', user_views.UserViewSet, basename='users')
@@ -19,5 +19,6 @@ urlpatterns = [
 	path('api/noti/list',NotiApiView.as_view(),name="noti_list"),
 	path('api/noti/get/',GetNotesView.as_view(),name="get_notes"),
 	path('api/noti/post/',AddNotesView.as_view(),name="post_note"),
+	path('api/noti/<pk>/delete/',DeleteNoteView.as_view(),name="delete_note"),
 
 ]

@@ -73,13 +73,8 @@
 				</th>
 				<th>
 				</th>
-				<th>    
-					{% comment %} <span class="tag is-danger is-light">Delete</span> {% endcomment %}
-					{% comment %} <button class="button is-danger is-rounded is-small is-responsive is-outlined">Delete</button> {% endcomment %}
-					
+				<th>
 					<button class="button is-danger is-rounded is-small is-responsive is-outlined">Delete All</button>
-
-
 				</th>
 			  </tr>
 			</thead>
@@ -146,8 +141,30 @@
 				  console.error(error);
 				}
 			},
-			deleteNote:function(id){
+			async deleteNote(id){
 				console.log('deleted',id);
+					
+
+					axios({
+						url:`http://localhost:8000/api/noti/${id}/delete/`,
+						method:'post',
+						 data:{
+						  note_id:id,
+						 },
+						 headers: {
+							"X-CSRFToken":"{{ csrf_token }}",
+							"content-type": "application/json"
+						}
+					  
+					  }).then(respons =>{
+						console.log("response",respons);
+						if(respons.data.data == "ok"){
+							this.getNotes();
+						}
+					  })
+					  .catch(err =>{
+						console.log(err);
+					  });
 			},
 			addNote: function(){
 				let noteField = document.getElementById("noteField").value;
