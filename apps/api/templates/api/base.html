@@ -135,7 +135,7 @@
 			},
 			async deleteAll(){
 					axios({
-						url:`http://localhost:8000/api/noti/all/del/`,
+						url:`https://noti-xce2.onrender.com/api/noti/all/del/`,
 						method:'post',
 						 data:{
 						  
@@ -160,7 +160,7 @@
 				const result = this.selectedNotes.map(item => item.pk)
 
 				axios({
-					url:`http://localhost:8000/api/noti/selected/del/`,
+					url:`https://noti-xce2.onrender.com/api/noti/selected/del/`,
 					method:'post',
 					 data:{
 					  note_ids:result,
@@ -187,7 +187,7 @@
 					
 
 					axios({
-						url:`http://localhost:8000/api/noti/${id}/delete/`,
+						url:`https://noti-xce2.onrender.com/api/noti/${id}/delete/`,
 						method:'post',
 						 data:{
 						  note_id:id,
@@ -211,7 +211,7 @@
 				let noteField = document.getElementById("noteField");
 				if (noteField.value !=""){
 					axios({
-						url:`http://localhost:8000/api/noti/add/`,
+						url:`https://noti-xce2.onrender.com/api/noti/add/`,
 						method:'post',
 							data:{
 								  note:noteField.value,
@@ -243,7 +243,7 @@
 				
 				
 				axios({
-					url:`http://localhost:8000/api/noti/${id}/complete/`,
+					url:`https://noti-xce2.onrender.com/api/noti/${id}/complete/`,
 					method:'post',
 					 data:{
 					  note_id:id,
