@@ -79,16 +79,22 @@
 			  </tr>
 			</thead>
 			<tbody>
-				<tr v-for="(note, index) in notes" align="left">
+				<tr v-for="(note, index) in notes">
 					<td>
 						<label class="checkbox">
-							<input type="checkbox">
+							<input type="checkbox" @click = "isCompleted( this,note.pk,note.is_completed )" :value="note.is_completed" :checked="note.is_completed == true">
 						</label>
-						[[ note.note ]]
 					</td>
-					<td>
+					<td align="center">
 						
+						<span class="label label-primary" v-if=" note.is_completed == true ">
+							<del>[[ note.note ]]</del>
+						</span>
+						<span class="label label-primary" v-if=" note.is_completed == false ">
+							[[ note.note ]]
+						</span>
 					</td>
+					
 					<td align="center">
 						<button @click = "deleteNote( note.pk )" class="delete is-small"></button>
 					</td>
@@ -167,31 +173,62 @@
 					  });
 			},
 			addNote: function(){
-				let noteField = document.getElementById("noteField").value;
-				if(noteField!=""){
-					
-					  axios({
-						url:'http://localhost:8000/api/noti/post/',
-						method:'post',
-						 data:{
-						  note:noteField,
-						 },
-						 headers: {
-							"X-CSRFToken":"{{ csrf_token }}",
-							"content-type": "application/json"
-						}
-					  
-					  }).then(respons =>{
-						console.log("response",respons);
-						if(respons.data.data == "ok"){
-							this.getNotes();
-						}
-					  })
-					  .catch(err =>{
-						console.log(err);
-					  });
-				}
-			}			
+				let noteField = document.getElementById("noteField");
+				axios({
+					url:`http://localhost:8000/api/noti/add/`,
+					method:'post',
+					 data:{
+					  note:noteField.value,
+					 },
+					 headers: {
+						"X-CSRFToken":"{{ csrf_token }}",
+						"content-type": "application/json"
+					}
+				  
+				  }).then(respons =>{
+					console.log("response",respons);
+					if(respons.data.data == "ok"){
+						this.getNotes();
+                        console.log('borrar')
+                        noteField.value = "";
+					}
+				  })
+				  .catch(err =>{
+					console.log(err);
+				  });
+			},
+			async isCompleted(e,id,is_completed) {
+                //let condition = is_completed;
+                
+                
+                //let isCompleted = is_completed ? false : true;
+                console.log('verifiacar',is_completed)
+                //let isCompleted = true if condition == true else false;
+				//let isCompleted = is_completed;
+                
+				//let noteField = document.getElementById("noteField").value;
+				axios({
+					url:`http://localhost:8000/api/noti/${id}/complete/`,
+					method:'post',
+					 data:{
+					  note_id:id,
+					  completed:is_completed,
+					 },
+					 headers: {
+						"X-CSRFToken":"{{ csrf_token }}",
+						"content-type": "application/json"
+					}
+				  
+				  }).then(respons =>{
+					console.log("response",respons);
+					if(respons.data.data == "ok"){
+						this.getNotes();
+					}
+				  })
+				  .catch(err =>{
+					console.log(err);
+				  });
+			},		
 
 		}
 		

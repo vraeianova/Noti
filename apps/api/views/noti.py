@@ -51,9 +51,22 @@ class AddNotesView(View):
 
 
 class DeleteNoteView(View):
-	# model = Notes
+		# model = Notes
 	def post(self, request, **kwargs):
 		data = json.loads(self.request.body)		
 		Notes.objects.filter(pk=data['note_id']).delete()
 		
+		return JsonResponse({'data':"ok"}, status = 200, safe=False)
+
+
+class CompleteNoteView(View):
+	def post(self, request, **kwargs):
+		data = json.loads(self.request.body)		
+		is_completed = data['completed']
+		print('verificar',is_completed)
+		if is_completed:	
+			Notes.objects.filter(pk=data['note_id']).update(is_completed=False)
+		else:
+			Notes.objects.filter(pk=data['note_id']).update(is_completed=True)
+				
 		return JsonResponse({'data':"ok"}, status = 200, safe=False)

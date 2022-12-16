@@ -12,7 +12,7 @@ class Notes(models.Model):
 	"""
 	id = models.AutoField(db_column='IdNote', primary_key=True)
 	note = models.CharField(db_column='Note', max_length=255, blank=True, null=True)
-	is_completed = models.BooleanField(db_column='IsCompleted', default=True)
+	is_completed = models.BooleanField(db_column='IsCompleted', default=False)
 	
 	def __str__(self):
 		"""Return Notes."""
