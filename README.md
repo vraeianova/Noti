@@ -24,6 +24,7 @@ desplegado en ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=fo
 - Crear un sistema de login.
 - Establecer un mejor diseño para la pila de notas.
 - Crear un frontend separado por componentes.
+- Hacer una versión del backend en ![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white) 😅 (Empecé tarde asi que decidí usar lo que conocía).
 <!-- BLOG-POST-LIST:END -->
 
 ### Sitio web 🌎
