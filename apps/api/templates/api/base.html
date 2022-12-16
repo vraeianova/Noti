@@ -68,19 +68,23 @@
 		  <table class="table" id="table">
 			<thead>
 			  <tr>
-				<th><abbr title="Position">Note</abbr></th>
+				<th align="left">
+					
+				</th>
 				<th>
 				</th>
 				<th>    
-					<label class="checkbox">
-						All
-						<input type="checkbox">
-					</label>
+					{% comment %} <span class="tag is-danger is-light">Delete</span> {% endcomment %}
+					{% comment %} <button class="button is-danger is-rounded is-small is-responsive is-outlined">Delete</button> {% endcomment %}
+					
+					<button class="button is-danger is-rounded is-small is-responsive is-outlined">Delete All</button>
+
+
 				</th>
 			  </tr>
 			</thead>
 			<tbody>
-				<tr v-for="(note, index) in notes">
+				<tr v-for="(note, index) in notes" align="left">
 					<td>
 						<label class="checkbox">
 							<input type="checkbox">
@@ -90,7 +94,7 @@
 					<td>
 						
 					</td>
-					<td>
+					<td align="center">
 						<button @click = "deleteNote( note.pk )" class="delete is-small"></button>
 					</td>
 				</tr>
@@ -100,13 +104,13 @@
 		  <form>
 			<div class="field">
 			  <div class="control">
-				<input id = "noteField" class="input is-medium is-rounded" type="text" placeholder="Agrega a la lista" required />
+				<input id = "noteField" class="input is-medium is-rounded" type="text" placeholder="Let's write!" required />
 			  </div>
 			</div>
 			
 			<br />
 			<button @click = "addNote()" class="button is-block is-fullwidth is-primary is-medium is-rounded" type="button">
-			  Nueva nota +
+			  Add +
 			</button>
 		  </form>
 		  <br>
