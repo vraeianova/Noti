@@ -8,6 +8,7 @@ ALLOWED_HOSTS = [
 	"localhost",
 	"0.0.0.0",
 	"127.0.0.1",
+	"noti-xce2.onrender.com"
 ]
 
 DATABASES = {
