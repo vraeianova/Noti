@@ -17,8 +17,9 @@
   }
   
   .login {
+    width: 500px;
     border-radius: 25px;
-    padding: 1.5rem;
+    padding: 4.5rem;
     box-shadow: 8px 8px 15px var(--shadowDark), -8px -8px 15px var(--shadowLight);
   }
   
@@ -29,3 +30,13 @@
   a {
     font-weight: 600;
   }
+.button.is-primary {
+    background-color: #26A99E;
+    border-color: transparent;
+    color: #fff;
+    
+}
+.table{
+    border-radius: 10px;
+   
+}
