@@ -25,12 +25,14 @@
 				<thead>
 				<tr>
 					<th align="left">
-						
-					</th>
-					<th>
-					</th>
-					<th>
 						<button @click="deleteAll()" class="button is-danger is-rounded is-small is-responsive is-outlined" v-if=" getNotesLength() == true ">Delete All</button>
+
+					</th>
+					<th>
+					</th>
+					<th>
+						<button @click="deleteSelected()" class="button is-outlined is-rounded is-small is-responsive is-outlined" v-if=" getSelectedLength() == true ">Delete selected</button>
+
 					</th>
 				</tr>
 				</thead>
@@ -38,7 +40,7 @@
 					<tr v-for="(note, index) in notes">
 						<td>
 							<label class="checkbox">
-								<input type="checkbox" @click = "isCompleted( this,note.pk,note.is_completed )" :value="note.is_completed" :checked="note.is_completed == true">
+								<input class = "checkboxInput" type="checkbox" @click = "isCompleted( this,note.pk,note.is_completed )" :value="note.is_completed" :checked="note.is_completed == true">
 							</label>
 						</td>
 						<td align="center">
@@ -95,12 +97,16 @@
 		data(){
 			return {
 				notes:[],
+				selectedNotes:[]
 			};
 		},
 		mounted(){
 
 			this.getNotes();
 			this.getNotesLength();
+			this.getSelectedLength();
+			
+			
 		},
 
 		methods:{
@@ -108,10 +114,20 @@
 				
 				return this.notes.length > 0;
 			},
+			getSelectedLength: function(){
+				
+				return this.selectedNotes.length > 0;
+			},
 			async getNotes() {
 				try {
 					const response = await axios.get(`api/noti/get/`);
 					this.notes = response.data;
+
+					//let selected = this.notes.filter(getFullName);
+
+					let selected = this.notes.filter(note => note.is_completed == true );
+					this.selectedNotes=selected;
+					
 					console.log('mounted response',response)
 				} catch (error) {
 				  console.error(error);
@@ -191,8 +207,14 @@
 				}
 				
 			},
+			verifySelected:function(){
+				
+				//let selected = document.getElementById("checkboxInput");
+				console.log('selected',this.notes)
+			},
 			async isCompleted(e,id,is_completed) {
-				console.log('verifiacar',is_completed)
+				
+				
 				axios({
 					url:`http://localhost:8000/api/noti/${id}/complete/`,
 					method:'post',
