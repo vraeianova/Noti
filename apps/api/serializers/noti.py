@@ -12,10 +12,6 @@ class NotesModelSerializer(serializers.ModelSerializer):
 		model = Notes
 		
 		fields = (
-			'address',
-			'biography',
-			'phone',
-			'photo',
-			'birthdate',
-			'is_public'
+			'note',
+			'is_completed',
 		)
