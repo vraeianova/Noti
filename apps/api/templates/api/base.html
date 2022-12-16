@@ -74,7 +74,7 @@
 				<th>
 				</th>
 				<th>
-					<button class="button is-danger is-rounded is-small is-responsive is-outlined">Delete All</button>
+					<button @click="deleteAll()" class="button is-danger is-rounded is-small is-responsive is-outlined" v-if=" getNotesLength() == true ">Delete All</button>
 				</th>
 			  </tr>
 			</thead>
@@ -134,10 +134,14 @@
 		mounted(){
 
 			this.getNotes();
+			this.getNotesLength();
 		},
 
 		methods:{
-			
+			getNotesLength: function(){
+				
+				return this.notes.length > 0;
+			},
 			async getNotes() {
 				try {
 					const response = await axios.get(`api/noti/get/`);
@@ -146,6 +150,28 @@
 				} catch (error) {
 				  console.error(error);
 				}
+			},
+			async deleteAll(){
+					axios({
+						url:`http://localhost:8000/api/noti/all/del/`,
+						method:'post',
+						 data:{
+						  
+						 },
+						 headers: {
+							"X-CSRFToken":"{{ csrf_token }}",
+							"content-type": "application/json"
+						}
+					  
+					  }).then(respons =>{
+						console.log("response",respons);
+						if(respons.data.data == "ok"){
+							this.getNotes();
+						}
+					  })
+					  .catch(err =>{
+						console.log(err);
+					  });
 			},
 			async deleteNote(id){
 				console.log('deleted',id);
@@ -189,8 +215,8 @@
 					console.log("response",respons);
 					if(respons.data.data == "ok"){
 						this.getNotes();
-                        console.log('borrar')
-                        noteField.value = "";
+						console.log('borrar')
+						noteField.value = "";
 					}
 				  })
 				  .catch(err =>{
@@ -198,14 +224,14 @@
 				  });
 			},
 			async isCompleted(e,id,is_completed) {
-                //let condition = is_completed;
-                
-                
-                //let isCompleted = is_completed ? false : true;
-                console.log('verifiacar',is_completed)
-                //let isCompleted = true if condition == true else false;
+				//let condition = is_completed;
+				
+				
+				//let isCompleted = is_completed ? false : true;
+				console.log('verifiacar',is_completed)
+				//let isCompleted = true if condition == true else false;
 				//let isCompleted = is_completed;
-                
+				
 				//let noteField = document.getElementById("noteField").value;
 				axios({
 					url:`http://localhost:8000/api/noti/${id}/complete/`,
