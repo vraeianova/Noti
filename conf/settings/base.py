@@ -9,9 +9,16 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import os
+import environ
+from pathlib import Path
+from django.contrib.messages import constants as messages
+
+env = environ.Env()
+environ.Env.read_env()
 
 from pathlib import Path
-
+ROOT_DIR = environ.Path(__file__) - 3
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -120,7 +127,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+# STATIC_URL = '/static/'
+
+STATIC_ROOT = str(ROOT_DIR('staticfiles'))
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+	str(ROOT_DIR.path('static')),
+]
+
+STATICFILES_FINDERS = [
+	'django.contrib.staticfiles.finders.FileSystemFinder',
+	'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+# =================MEDIA=================
+MEDIA_URL = '/media/'
+MEDIA_ROOT = Path.joinpath(BASE_DIR, 'media')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
