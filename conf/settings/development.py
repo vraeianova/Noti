@@ -13,7 +13,7 @@ ALLOWED_HOSTS = [
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': 'WipView',
+		'NAME': 'Noti',
 	}
 }
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

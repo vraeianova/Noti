@@ -79,7 +79,7 @@
 						
 					</td>
 					<td>
-						<button @click = "deleteNote([[ note.pk ]])" class="delete is-small"></button>
+						<button @click = "deleteNote( note.pk )" class="delete is-small"></button>
 					</td>
 				</tr>
 			  
@@ -130,11 +130,11 @@
 				  console.error(error);
 				}
 			},
-            deleteNote:function(){
-              console.log('deleted')  
-            },
+			deleteNote:function(id){
+				console.log('deleted',id);
+			},
 			addNote: function(){
-				let noteField = document.getElementById("noteField").value
+				let noteField = document.getElementById("noteField").value;
 				if(noteField!=""){
 					
 					  axios({
@@ -150,9 +150,9 @@
 					  
 					  }).then(respons =>{
 						console.log("response",respons);
-                        if(respons.data.data == "ok"){
-                            this.getNotes();
-                        }
+						if(respons.data.data == "ok"){
+							this.getNotes();
+						}
 					  })
 					  .catch(err =>{
 						console.log(err);
